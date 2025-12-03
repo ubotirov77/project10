@@ -1,6 +1,6 @@
 // INITIAL SETUP
-const habits = [];
-const completedDays = new Set();
+let habits = JSON.parse(localStorage.getItem("habits")) || [];
+let completedDays = new Set(JSON.parse(localStorage.getItem("completedDays")) || []);
 const totalDays = 21;
 
 // --------------------------
@@ -12,7 +12,9 @@ function generateAISuggestion() {
         "You're not tired. You're undisciplined. Fix it.",
         "One day or day one. Pick.",
         "If you fail today, your weak version wins.",
-        "Small actions compound. You know this."
+        "Small actions compound. You know this.",
+        "Every excuse feeds the weak version of you.",
+        "Discipline or regret. Choose one."
     ];
 
     document.getElementById("ai-output").innerText =
@@ -29,6 +31,7 @@ function addHabit() {
     if (!value) return;
 
     habits.push(value);
+    saveHabits();
     renderHabits();
     input.value = "";
 }
@@ -50,7 +53,12 @@ function renderHabits() {
 
 function removeHabit(i) {
     habits.splice(i, 1);
+    saveHabits();
     renderHabits();
+}
+
+function saveHabits() {
+    localStorage.setItem("habits", JSON.stringify(habits));
 }
 
 // --------------------------
@@ -58,14 +66,16 @@ function removeHabit(i) {
 // --------------------------
 function generateDays() {
     const container = document.getElementById("days");
+    container.innerHTML = "";
 
     for (let i = 1; i <= totalDays; i++) {
         const d = document.createElement("div");
         d.className = "day";
         d.innerText = i;
 
-        d.onclick = () => toggleDay(i, d);
+        if (completedDays.has(i)) d.classList.add("active");
 
+        d.onclick = () => toggleDay(i, d);
         container.appendChild(d);
     }
 }
@@ -80,6 +90,11 @@ function toggleDay(num, element) {
     }
 
     updateProgress();
+    saveDays();
+}
+
+function saveDays() {
+    localStorage.setItem("completedDays", JSON.stringify([...completedDays]));
 }
 
 // --------------------------
@@ -88,7 +103,7 @@ function toggleDay(num, element) {
 function updateProgress() {
     const percent = Math.floor((completedDays.size / totalDays) * 100);
     document.getElementById("progress-bar").style.width = percent + "%";
-    document.getElementById("progress-text").innerText = percent + "% Completed";
+    document.getElementById("progress-text").innerText = `${percent}% Done (${completedDays.size}/${totalDays})`;
 }
 
 // --------------------------
@@ -98,9 +113,15 @@ function saveReflection() {
     const text = document.getElementById("reflection").value.trim();
     if (!text) return;
 
+    const today = new Date().toISOString().split("T")[0];
+    localStorage.setItem(`reflection-${today}`, text);
     alert("Reflection saved. Journal updated.");
 }
 
+// --------------------------
 // INIT
+// --------------------------
 generateDays();
+renderHabits();
 generateAISuggestion();
+updateProgress();
