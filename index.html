@@ -1,70 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>21-Day Transformation Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>21-Day Transformation Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <header>
+    <h1>21-Day Transformation</h1>
+    <p class="subtitle">War Room • Kill the Weak Version</p>
+  </header>
 
-    <!-- HERO -->
-    <header class="hero">
-        <div class="overlay"></div>
-        <h1>21-DAY TRANSFORMATION</h1>
-        <p class="subtitle">War Room • Eliminate Your Weak Version</p>
-    </header>
+  <!-- Progress -->
+  <section id="progress-section">
+    <div id="progress-container">
+      <div id="progress-bar"></div>
+    </div>
+    <p id="progress-text">0% Done (0/21)</p>
+  </section>
 
-    <!-- PROGRESS -->
-    <section class="section">
-        <h2 class="section-title">Progress</h2>
-        <div id="progress-container">
-            <div id="progress-bar"></div>
-        </div>
-        <p id="progress-text">0% Completed</p>
-    </section>
+  <!-- AI Coach -->
+  <section id="ai-panel">
+    <h2>Coach Says</h2>
+    <p id="ai-output">Discipline is the bridge to power. Start now.</p>
+    <button id="ai-refresh" onclick="generateAISuggestion()">Update Insight</button>
+    <div id="coach-avatar">
+      <img src="coach.png" alt="AI Coach Avatar" />
+    </div>
+  </section>
 
-    <!-- AI COACH -->
-    <section id="ai-panel" class="section">
-        <h2 class="section-title">Reminder</h2>
-        <div class="ai-box">
-            <img src="https://img.goodfon.com/wallpaper/nbig/f/5c/samurai-meditation-traditional-japanese-house.webp" alt="Coach AI" class="coach-img">
-            <p id="ai-output">Your coach is analyzing your behavior...</p>
-        </div>
-        <button id="ai-refresh" onclick="generateAISuggestion()">Update Insights</button>
-    </section>
+  <!-- Habit Input -->
+  <section id="habit-section">
+    <h2>Daily Habits</h2>
+    <p class="tip">Tip: Choose 2–5 core habits that support your goal. Keep it specific and actionable.</p>
+    <div id="habit-input-box">
+      <input id="habit-input" type="text" placeholder="e.g. 50 push-ups, 10 pages reading">
+      <button onclick="addHabit()">Add</button>
+    </div>
+    <ul id="habits"></ul>
+  </section>
 
-    <!-- HABITS -->
-    <section class="section">
-        <h2 class="section-title">Your Daily Habits</h2>
+  <!-- Day Grid -->
+  <section id="day-grid-section">
+    <h2>21-Day Wall</h2>
+    <p class="tip">Click each day when all habits are completed. Build your streak!</p>
+    <div id="days"></div>
+  </section>
 
-        <div id="habit-input-box">
-            <input id="habit-input" type="text" placeholder="Enter a habit (e.g., Cold Shower)">
-            <button onclick="addHabit()">Add</button>
-        </div>
+  <!-- Reflection -->
+  <section id="reflection-section">
+    <h2>Daily Reflection</h2>
+    <p class="tip">Reflect on your discipline, mindset, and wins for today.</p>
+    <textarea id="reflection" placeholder="Write your reflection for today..."></textarea>
+    <button onclick="saveReflection()">Save Reflection</button>
+  </section>
 
-        <div id="habits" class="habit-list"></div>
-    </section>
+  <!-- Milestones and Achievements -->
+  <section id="achievements">
+    <h2>Milestones</h2>
+    <ul id="milestone-list"></ul>
+  </section>
 
-    <!-- 21 DAY WALL -->
-    <section class="section">
-        <h2 class="section-title">21-Day Wall</h2>
-        <p class="section-subtitle">Each day you mark is one punch thrown at your weaker self.</p>
-        <div id="days" class="day-grid"></div>
-    </section>
+  <!-- Upload Progress Photo -->
+  <section id="photo-section">
+    <h2>Progress Photos</h2>
+    <p class="tip">Upload a photo from Day 1 and Day 21 to see your transformation visually.</p>
+    <input type="file" id="photo-day1" accept="image/*">
+    <label for="photo-day1">Upload Day 1 Photo</label>
+    <input type="file" id="photo-day21" accept="image/*">
+    <label for="photo-day21">Upload Day 21 Photo</label>
+    <div id="photo-preview"></div>
+  </section>
 
-    <!-- REFLECTION -->
-    <section class="section">
-        <h2 class="section-title">Daily Reflection</h2>
-        <p class="section-subtitle">If you don’t reflect, you repeat.</p>
-        <textarea id="reflection" placeholder="Write what you learned today, even if it's one brutal truth..."></textarea>
-        <button onclick="saveReflection()">Save Reflection</button>
-    </section>
+  <!-- Footer -->
+  <footer>
+    <p>Discipline equals freedom • Designed to kill your weak self.</p>
+  </footer>
 
-    <footer>
-        <p>Rise. Break. Transform.</p>
-    </footer>
-
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
